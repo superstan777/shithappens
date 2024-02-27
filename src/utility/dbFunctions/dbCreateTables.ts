@@ -12,7 +12,7 @@ export const dbCreateTables = (database: any): void => {
   });
   database.transaction((tx: any) => {
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS imageTable (id INTEGER PRIMARY KEY AUTOINCREMENT, imageUri TEXT)"
+      "CREATE TABLE IF NOT EXISTS dogInfoTable (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, breed TEXT, imageUri TEXT)"
     );
   });
 };

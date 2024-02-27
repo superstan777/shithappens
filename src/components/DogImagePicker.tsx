@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Image, View, Text, Pressable, StyleSheet } from "react-native";
-import { dbGetImageUri } from "../utility/dbFunctions/dbGetImageUri";
+import { dbGetDogInfo } from "../utility/dbFunctions/dbGetDogInfo";
 import * as ImagePicker from "expo-image-picker";
-import { dbInsertImageUri } from "../utility/dbFunctions/dbInsertImageUri";
 import { dbUpdateImageUri } from "../utility/dbFunctions/dbUpdateImageUri";
 
 interface Props {
@@ -24,13 +23,12 @@ export const DogImagePicker: React.FC<Props> = ({ database }) => {
   }, [wasImageUpdated]);
 
   const setImageHandler = async (): Promise<void> => {
-    const imageObj = await dbGetImageUri(database);
-    console.log(imageObj);
-    if (imageObj !== undefined) {
-      setImage(imageObj.imageUri);
+    const dogObj = await dbGetDogInfo(database);
+    console.log(dogObj);
+
+    if (dogObj.rows._array.length === 1) {
+      setImage(dogObj.rows._array[0].imageUri);
       setIsImageSet(true);
-    } else {
-      dbInsertImageUri(database, "");
     }
   };
   const pickImage = async () => {
@@ -66,17 +64,12 @@ export const DogImagePicker: React.FC<Props> = ({ database }) => {
     }
   };
 
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {showImage()}
-    </View>
-  );
+  return <View style={styles.dogImage}>{showImage()}</View>;
 };
 
 const styles = StyleSheet.create({
   dogImageContainer: {
     borderRadius: 25,
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

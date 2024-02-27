@@ -1,16 +1,25 @@
 import { StyleSheet, View, Text } from "react-native";
 import { DogImagePicker } from "./DogImagePicker";
+import { dbGetDogInfo } from "../utility/dbFunctions/dbGetDogInfo";
+import { useState, useEffect } from "react";
 interface Props {
   database: any;
 }
 
 export const DogInfo: React.FC<Props> = ({ database }) => {
+  const [name, setName] = useState<string>("");
+  useEffect(() => {
+    setNameHandler();
+  }, []);
+  const setNameHandler = async () => {
+    const result = await dbGetDogInfo(database);
+    setName(result.rows._array[0].name);
+  };
+
   return (
     <View style={styles.dogImageContainer}>
-      {/* <View style={styles.dogImage}> */}
       <DogImagePicker database={database} />
-      {/* </View> */}
-      <Text style={styles.text}>Reykja</Text>
+      <Text style={styles.text}>{name}</Text>
     </View>
   );
 };
@@ -18,10 +27,8 @@ export const DogInfo: React.FC<Props> = ({ database }) => {
 const styles = StyleSheet.create({
   dogImageContainer: {
     borderRadius: 25,
-    flex: 1,
     display: "flex",
-    justifyContent: "space-around",
-
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 

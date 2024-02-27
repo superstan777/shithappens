@@ -32,7 +32,6 @@ export const StatusContainer: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   statusContainer: {
-    flex: 2,
     borderRadius: 25,
     display: "flex",
     flexDirection: "column",

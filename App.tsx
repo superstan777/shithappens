@@ -3,12 +3,14 @@ import { dbCreateTables } from "./src/utility/dbFunctions/dbCreateTables";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import { useState, useEffect } from "react";
 import { DogScreen } from "./src/screens/DogScreen";
-import { AddDogScreen } from "./src/screens/AddDogScreen";
+import { CreateDogScreen } from "./src/screens/CreateDogScreen";
 import { dbGetDogInfo } from "./src/utility/dbFunctions/dbGetDogInfo";
+import { SelectScreen } from "./src/screens/SelectScreen";
+import { ImportDogScreen } from "./src/screens/ImportDogScreen";
 
 export default function App() {
   //sqlite types to be added
-  const db = SQLite.openDatabase("dog21111111.db");
+  const db = SQLite.openDatabase("dog21111111111.db");
   const [screen, setScreen] = useState<string>("loading");
   const [wasDogInfoTableUpdated, setWasDogInfoTableUpdated] =
     useState<boolean>(false);
@@ -17,7 +19,7 @@ export default function App() {
   const setScreenHandler = async () => {
     const dogInfo = await dbGetDogInfo(db);
     if (dogInfo.rows._array.length === 0) {
-      setScreen("add");
+      setScreen("select");
     } else {
       setScreen("dog");
     }
@@ -37,15 +39,19 @@ export default function App() {
     switch (param) {
       case "loading":
         return <View></View>;
-      case "add":
+      case "create":
         return (
-          <AddDogScreen
+          <CreateDogScreen
             database={db}
             setWasDogInfoTableUpdated={setWasDogInfoTableUpdated}
           />
         );
       case "dog":
         return <DogScreen database={db} />;
+      case "select":
+        return <SelectScreen setScreen={setScreen} />;
+      case "import":
+        return <ImportDogScreen />;
       default:
         return "loading";
     }

@@ -15,7 +15,10 @@
     "expo-sqlite": "~13.2.2",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-native": "0.73.4",
+    "react-native-camera": "^4.2.1",
+    "react-native-qrcode-svg": "^6.3.0",
+    "expo-camera": "~14.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -16,7 +16,7 @@ interface Props {
   setWasDogInfoTableUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AddDogScreen: React.FC<Props> = ({
+export const CreateDogScreen: React.FC<Props> = ({
   database,
   setWasDogInfoTableUpdated,
 }) => {

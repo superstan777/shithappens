@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import { DogInfo } from "./DogInfo";
 import { StatusContainer } from "./StatusContainer";
+import QRCode from "react-native-qrcode-svg";
+import { useState, useEffect } from "react";
+import { dbGetDogInfo } from "../utility/dbFunctions/dbGetDogInfo";
 
 interface Props {
   peeTimer: string;
@@ -12,6 +15,19 @@ export const DogContainer: React.FC<Props> = ({
   poopTimer,
   database,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [qr, setQr] = useState<string>("");
+
+  const setQrHandler = async (): Promise<void> => {
+    const result = await dbGetDogInfo(database);
+    setQr(result.rows._array[0].name); // qr value placeholder
+    setIsMounted(true);
+  };
+
+  useEffect(() => {
+    setQrHandler();
+  }, []);
+
   return (
     <View style={styles.dogContainer}>
       <DogInfo database={database} />
@@ -20,6 +36,7 @@ export const DogContainer: React.FC<Props> = ({
         poopTimer={poopTimer}
         database={database}
       />
+      {isMounted && <QRCode value={qr} size={100} />}
     </View>
   );
 };
@@ -29,10 +46,10 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "80%",
     borderRadius: 25,
-    // display: "flex",
-    // flexDirection: "row",
-    // justifyContent: "space-evenly",
-    // alignItems: "flex-start",
+    flexDirection: "column",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-    height: "20%",
   },
   statusBar: {
     width: "90%",

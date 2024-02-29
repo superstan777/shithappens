@@ -1,20 +1,18 @@
 import { View, StyleSheet } from "react-native";
 import { MainContainer } from "../components/MainContainer";
 import { ButtonsContainer } from "../components/ButtonsContainer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { countTimeDifferenceInSeconds } from "../utility/countTimeDifferenceInSeconds";
 import { dbGetLastPeeInfo } from "../utility/dbFunctions/dbGetLastPeeInfo";
 import { dbGetLastPoopInfo } from "../utility/dbFunctions/dbGetLastPoopInfo";
-interface Props {
-  database: any;
-}
-
-export const DogScreen: React.FC<Props> = ({ database }) => {
+import { DatabaseContext } from "../Context/DatabaseContext";
+export const DogScreen: React.FC = () => {
   const [peeTimer, setPeeTimer] = useState<string>("");
   const [peeElapsedTime, setPeeElapsedTime] = useState<number>(0);
   const [poopTimer, setPoopTimer] = useState<string>("");
   const [poopElapsedTime, setPoopElapsedTime] = useState<number>(0);
   const [wasDatabaseUpdated, setWasDatabaseUpdated] = useState(false);
+  const database = useContext(DatabaseContext);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -84,15 +82,8 @@ export const DogScreen: React.FC<Props> = ({ database }) => {
 
   return (
     <View style={styles.dogScreen}>
-      <MainContainer
-        peeTimer={peeTimer}
-        poopTimer={poopTimer}
-        database={database}
-      />
-      <ButtonsContainer
-        database={database}
-        setWasDatabaseUpdated={setWasDatabaseUpdated}
-      />
+      <MainContainer peeTimer={peeTimer} poopTimer={poopTimer} />
+      <ButtonsContainer setWasDatabaseUpdated={setWasDatabaseUpdated} />
     </View>
   );
 };

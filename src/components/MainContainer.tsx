@@ -1,22 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { DogContainer } from "./DogContainer";
 interface Props {
   peeTimer: string;
   poopTimer: string;
-  database: any;
 }
-export const MainContainer: React.FC<Props> = ({
-  peeTimer,
-  poopTimer,
-  database,
-}) => {
+export const MainContainer: React.FC<Props> = ({ peeTimer, poopTimer }) => {
   return (
     <View style={styles.mainContainer}>
-      <DogContainer
-        peeTimer={peeTimer}
-        poopTimer={poopTimer}
-        database={database}
-      />
+      <DogContainer peeTimer={peeTimer} poopTimer={poopTimer} />
     </View>
   );
 };

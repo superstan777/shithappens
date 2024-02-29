@@ -7,23 +7,22 @@ import {
   Image,
 } from "react-native";
 import { Button } from "../components/Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { dbInsertDogInfoRecord } from "../utility/dbFunctions/dbInsertDogInfoRecord";
 import * as ImagePicker from "expo-image-picker";
-
+import { DatabaseContext } from "../Context/DatabaseContext";
 interface Props {
-  database: any;
   setWasDogInfoTableUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CreateDogScreen: React.FC<Props> = ({
-  database,
   setWasDogInfoTableUpdated,
 }) => {
   const [name, setName] = useState<string>("");
   const [breed, setBreed] = useState<string>("");
   const [imageUri, setImageUri] = useState<string>(""); // placeholder as default
   const [isImageSet, setIsImageSet] = useState<boolean>(false);
+  const database = useContext(DatabaseContext);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library

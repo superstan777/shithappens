@@ -2,15 +2,16 @@ import { StyleSheet, View } from "react-native";
 import { Button } from "./Button";
 import { dbInsertPee } from "../utility/dbFunctions/dbInsertPee";
 import { dbInsertPoop } from "../utility/dbFunctions/dbInsertPoop";
+import { DatabaseContext } from "../Context/DatabaseContext";
+import { useContext } from "react";
 interface Props {
-  database: any; // proper type to be done
   setWasDatabaseUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ButtonsContainer: React.FC<Props> = ({
-  database,
   setWasDatabaseUpdated,
 }) => {
+  const database = useContext(DatabaseContext);
   const peeButtonHandler = (): void => {
     dbInsertPee(database); // if success setWas
     setWasDatabaseUpdated(true);

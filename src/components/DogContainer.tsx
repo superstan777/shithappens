@@ -27,7 +27,7 @@ export const DogContainer: React.FC<Props> = ({ peeTimer, poopTimer }) => {
 
   return (
     <View style={styles.dogContainer}>
-      <DogInfo database={database} />
+      <DogInfo />
       <StatusContainer
         peeTimer={peeTimer}
         poopTimer={poopTimer}

@@ -1,13 +1,12 @@
 import { StyleSheet, View, Text } from "react-native";
 import { DogImagePicker } from "./DogImagePicker";
 import { dbGetDogInfo } from "../utility/dbFunctions/dbGetDogInfo";
-import { useState, useEffect } from "react";
-interface Props {
-  database: any;
-}
+import { useState, useEffect, useContext } from "react";
+import { DatabaseContext } from "../Context/DatabaseContext";
 
-export const DogInfo: React.FC<Props> = ({ database }) => {
+export const DogInfo: React.FC = () => {
   const [name, setName] = useState<string>("");
+  const database = useContext(DatabaseContext);
   useEffect(() => {
     setNameHandler();
   }, []);
@@ -18,7 +17,7 @@ export const DogInfo: React.FC<Props> = ({ database }) => {
 
   return (
     <View style={styles.dogImageContainer}>
-      <DogImagePicker database={database} />
+      <DogImagePicker />
       <Text style={styles.text}>{name}</Text>
     </View>
   );

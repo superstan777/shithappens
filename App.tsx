@@ -1,4 +1,3 @@
-import * as SQLite from "expo-sqlite";
 import { dbCreateTables } from "./src/utility/dbFunctions/dbCreateTables";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import { useState, useEffect, useContext } from "react";

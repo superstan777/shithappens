@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Image, View, Text, Pressable, StyleSheet } from "react-native";
 import { dbGetDogInfo } from "../utility/dbFunctions/dbGetDogInfo";
 import * as ImagePicker from "expo-image-picker";
 import { dbUpdateImageUri } from "../utility/dbFunctions/dbUpdateImageUri";
+import { DatabaseContext } from "../Context/DatabaseContext";
 
-interface Props {
-  database: any;
-}
-export const DogImagePicker: React.FC<Props> = ({ database }) => {
+export const DogImagePicker: React.FC = () => {
   //insert first record of imageTable to be done
   const [image, setImage] = useState<string | undefined>();
   const [isImageSet, setIsImageSet] = useState<boolean>(false);
   const [wasImageUpdated, setWasImageUpdated] = useState<boolean>(false);
+  const database = useContext(DatabaseContext);
 
   useEffect(() => {
     setImageHandler();

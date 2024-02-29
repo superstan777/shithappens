@@ -12,6 +12,7 @@ export const ButtonsContainer: React.FC<Props> = ({
   setWasDatabaseUpdated,
 }) => {
   const database = useContext(DatabaseContext);
+
   const peeButtonHandler = (): void => {
     dbInsertPee(database); // if success setWas
     setWasDatabaseUpdated(true);
